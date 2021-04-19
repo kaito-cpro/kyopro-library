@@ -76,7 +76,7 @@ int main() {
     auto min_path = g.min_path(s, t);
 
     // 最長経路を求めたいときは
-    // add_edge() の cost をすべて負にして, inf は触らなくて ok
+    // add_edge() の cost をすべて負にして, inf は触らなくて ok (Dijkstra は cost が定符号なら動くので)
     // dijkstra() で受け取った dist をすべて符号反転すれば最長経路になる
     // 到達不可能な頂点の dist は -INF になる
 }
