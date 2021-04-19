@@ -69,6 +69,7 @@ istream& operator>>(istream& is, mint& e) {
 }
 
 int main() {
+    // MOD が素数で, かつ, n < MOD の呼び出しに対し正常に動作する
     Combination<mint> cmb;
     cout << cmb.C(4, 2).val() << endl;
 }
