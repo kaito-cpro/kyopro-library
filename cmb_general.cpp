@@ -84,7 +84,8 @@ istream& operator>>(istream& is, mint& e) {
 }
 
 int main() {
-    // MOD が合成数でも, n >= MOD の呼び出しでも正常にで動作する
+    // MOD が素数のときに正常に動作する
+    // n >= MOD の呼び出しでも正常にで動作する(つまり、MOD が小さい素数の場合でも利用できる)
     mint::set_mod(3);  // MOD の値は, 一度 Combination のメソッドを呼び出した後には変更しないこと
     Combination<mint> cmb;
     cout << cmb.C(4, 2).val() << endl;
