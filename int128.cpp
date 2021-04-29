@@ -28,6 +28,16 @@ ostream& operator<<(ostream& os, __int128 n) {
     return os << s;
 }
 
+__int128 pow(__int128 x, __int128 n) {
+    __int128 res = 1;
+    while (n) {
+        if (n & 1) res = res * x;
+        x = x * x;
+        n >>= 1;
+    }
+    return res;
+}
+
 int main() {
     __int128 x;  cin >> x;
     cout << x << endl;
