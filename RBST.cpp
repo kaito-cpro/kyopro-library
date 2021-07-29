@@ -227,6 +227,7 @@ int main() {
     //  * lower_bound_index(root, x): ポインタではなく "インデックス" を int で求める
     // ただし, lower_bound をするときはデータが sort されていることが前提で動く.
     // よって, tree を改変するときは lower_bound_index で挿入位置を求めて insert すること.
+    // 「k 番目に小さい値」を管理させたいときは, build 時や挿入時に lower_bound_index で大小順を崩さないように気にする必要がある
     
     vector<ll> v{3, 1, 4, 1, 5, 9, 2};
     RBST<S, op, e> tree(v);  // vector で初期化

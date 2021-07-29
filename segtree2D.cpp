@@ -8,7 +8,7 @@ template <class S,
           S (*e)()>
 class segtree2D {
 public:
-    segtree2D(int H, int W) : H(H), W(W) { _init(H, W); }
+    segtree2D(int h, int w) : H(h), W(w) { _init(h, w); }
     
     void set(int i, int j, S val) {
         seg[i + SEG_LEN].set(j, val);
