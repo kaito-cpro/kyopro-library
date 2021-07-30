@@ -23,6 +23,7 @@ public:
     vector<Cap> bellman_ford(int s) {
         vector<Cap> d(N, INF);
         d[s] = 0;
+        fill(prev.begin(), prev.end(), -1);
         while (true) {
             bool update = false;
             for (edge e : G) {
@@ -35,6 +36,43 @@ public:
             if (!update) break;
         }
         return d;
+    }
+    
+    // グラフの中に負の閉路があるか(頂点 s から到達可能かどうかは関係なく)
+    bool find_negative_loop() {
+        vector<Cap> d(N, 0);
+        int cnt = 0;
+        while (++cnt) {
+            bool update = false;
+            for (edge e : G) {
+                if (d[e.from] != INF && d[e.to] > d[e.from] + e.cost) {
+                    d[e.to] = d[e.from] + e.cost;
+                    update = true;
+                }
+            }
+            if (!update) break;
+            if (cnt == N) return true;  // 負の閉路あり
+        }
+        return false;
+    }
+    
+    // 頂点 s から到達可能な負の閉路があるか
+    bool find_negative_loop(int s) {
+        vector<Cap> d(N, INF);
+        d[s] = 0;
+        int cnt = 0;
+        while (++cnt) {
+            bool update = false;
+            for (edge e : G) {
+                if (d[e.from] != INF && d[e.to] > d[e.from] + e.cost) {
+                    d[e.to] = d[e.from] + e.cost;
+                    update = true;
+                }
+            }
+            if (!update) break;
+            if (cnt == N) return true;  // 頂点 s から到達可能な負の閉路あり
+        }
+        return false;
     }
 
     vector<int> min_path(int s, int t) {

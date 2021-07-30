@@ -21,6 +21,12 @@ public:
     }
 
     vector<vector<Cap>> warshall_floyd() {
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                if (i == j) prev[i][j] = i;
+                else prev[i][j] = -1;
+            }
+        }
         for (int k = 0; k < N; ++k) {
             for (int i = 0; i < N; ++i) {
                 for (int j = 0; j < N; ++j) {

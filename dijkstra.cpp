@@ -24,6 +24,7 @@ public:
     vector<Cap> dijkstra(int s) {
         vector<Cap> d(N, INF);
         d[s] = 0;
+        fill(prev.begin(), prev.end(), -1);
         using P = pair<Cap, int>;
         priority_queue<P, vector<P>, greater<P>> que;
         que.push(P(0, s));
