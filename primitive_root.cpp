@@ -5,7 +5,20 @@ using namespace atcoder;
 
 using ll = long long;
 
-ll pow_mod(ll x, ll n, ll mod) {
+ll extgcd(ll a, ll b, ll& x, ll& y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    else {
+        ll d = extgcd(b, a % b, y, x);
+        y -= a / b * x;
+        return d;
+    }
+}
+
+ll mod_pow(ll x, ll n, ll mod) {
     ll res = 1;
     while (n) {
         if (n & 1) res = res * x % mod;
@@ -13,6 +26,13 @@ ll pow_mod(ll x, ll n, ll mod) {
         n >>= 1;
     }
     return res;
+}
+
+// 逆元存在条件 gcd(x, mod) = 1 が前提
+ll mod_inv(ll x, ll mod) {
+    ll y, k;
+    extgcd(x, mod, y, k);  // mod p における x の逆元は xy + pk = 1 (mod p) となる y
+    return y;
 }
 
 vector<ll> prime_factors(ll x) {
@@ -57,9 +77,10 @@ ll find_primitive_root(ll p) {
     }
 }
 
-// 離散対数問題 a^x = b (mod p) の解 x を求める
+// 離散対数問題 a^x = b (mod p) のを満たす最小の正の整数 x を求める
+// 存在しないときは -1
 // 計算量 O(sqrt(p))
-ll log_mod(ll a, ll b, ll p) {
+ll mod_log(ll a, ll b, ll p) {
     // sqrt(p) の計算
     ll lb = -1, ub = p;
     while (ub - lb > 1) {
@@ -77,8 +98,8 @@ ll log_mod(ll a, ll b, ll p) {
     }
     
     now = b % p;
-    ll A = pow_mod(a, -sqrt_p, p);
-    for (ll i = 0; i <= sqrt_p; ++i) {
+    ll A = mod_pow(mod_inv(a, p), sqrt_p, p);
+    for (ll i = 0; i < sqrt_p; ++i) {
         if (mp[now] > 0) return i * sqrt_p + mp[now];
         now = now * A % p;
     }
@@ -89,7 +110,7 @@ ll log_mod(ll a, ll b, ll p) {
 int main() {
     ll p = 998244353;
     ll r = find_primitive_root(p);  // mod p の原始根の 1 つ
-    ll x = log_mod(r, 2, p);  // r^x = 2 (mod p) の解,
+    ll x = mod_log(r, 2, p);  // r^x = 2 (mod p) の解,
                               // すなわち, 2 の離散対数 log_{r}(2),
                               // すなわち, 2 と対応する加法群 Z/(p - 1)Z の元,
                               // すなわち, 2 の位数は (p - 1) / gcd(x, p - 1)
