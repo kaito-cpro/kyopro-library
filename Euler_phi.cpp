@@ -20,11 +20,11 @@ ll phi(ll n) {
 
 // 計算量 O(N loglogN)
 vector<int> make_phi_table(int MAX_N) {
-    vector<int> phi(MAX_N);
-    for (int i = 0; i < MAX_N; ++i) phi[i] = i;
-    for (int i = 2; i < MAX_N; ++i) {
+    vector<int> phi(MAX_N + 1);
+    for (int i = 0; i <= MAX_N; ++i) phi[i] = i;
+    for (int i = 2; i <= MAX_N; ++i) {
         if (phi[i] == i) {
-            for (int j = 1; i * j < MAX_N; ++j) {
+            for (int j = 1; i * j <= MAX_N; ++j) {
                 phi[i * j] = phi[i * j] / i * (i - 1);
             }
         }
