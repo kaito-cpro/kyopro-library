@@ -3,6 +3,9 @@
 using namespace std;
 using namespace atcoder;
 
+using ll = long long;
+const ll LINF = numeric_limits<ll>::max() / 2;
+
 template <class S,
           S (*op)(S, S),
           S (*e)()>
@@ -206,12 +209,9 @@ private:
     }
 };
 
-using ll = long long;
-const ll INF = numeric_limits<ll>::max() / 2;
-
 using S = ll;  // tree に持たせるデータ
 S op(S l, S r) { return min(l, r); }  // prod() の演算
-S e() { return INF; }
+S e() { return LINF; }
 
 int main() {
     // RBST の仕様
